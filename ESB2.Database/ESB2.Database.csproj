@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5834A3E1-6971-4591-9589-020492D63C58}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>ESB2.Database</RootNamespace>
+    <AssemblyName>esb2db</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationExceptionDialog.xaml.cs">
+      <DependentUpon>ApplicationExceptionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordDialog.xaml.cs">
+      <DependentUpon>ChangePasswordDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAdminAccountDialog.xaml.cs">
+      <DependentUpon>CreateAdminAccountDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentUserNotifications.cs" />
+    <Compile Include="Equipment.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentGroup.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentStatus.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ESB2db.cs" />
+    <Compile Include="EntityDataModelESB2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityDataModelESB2.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModelESB2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModelESB2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityDataModelESB2.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ESB2ExceptionEventLog.cs" />
+    <Compile Include="ESB2Login.cs" />
+    <Compile Include="ESB2UserEventLog.cs" />
+    <Compile Include="EventLoggerEvent.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventLoggerEvents.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionEventLogEntry.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvalidUsernameDialog.xaml.cs">
+      <DependentUpon>InvalidUsernameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LockedAccountDialog.xaml.cs">
+      <DependentUpon>LockedAccountDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginFailDialog.xaml.cs">
+      <DependentUpon>LoginFailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OperationalStatus.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordChangeFailDialog.xaml.cs">
+      <DependentUpon>PasswordChangeFailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordEncrypter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SystemGroup.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemsList.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserList.cs" />
+    <Compile Include="UserLogin.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserLoginDialog.xaml.cs">
+      <DependentUpon>UserLoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserPermissions.cs">
+      <DependentUpon>EntityDataModelESB2.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <EntityDeploy Include="EntityDataModelESB2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityDataModelESB2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityDataModelESB2.edmx.diagram">
+      <DependentUpon>EntityDataModelESB2.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityDataModelESB2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityDataModelESB2.Context.cs</LastGenOutput>
+      <DependentUpon>EntityDataModelESB2.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityDataModelESB2.edmx.sql" />
+    <Content Include="EntityDataModelESB2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityDataModelESB2.cs</LastGenOutput>
+      <DependentUpon>EntityDataModelESB2.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ApplicationExceptionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangePasswordDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateAdminAccountDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InvalidUsernameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LockedAccountDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginFailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordChangeFailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserLoginDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\dsbSoftware\MyLibrary\WPFLibrary\WPFLibrary.csproj">
+      <Project>{11ec5682-364e-4746-a7d4-d5e27a4c08e6}</Project>
+      <Name>WPFLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,12 +1,20 @@
-﻿<Window x:Class="ESB2.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ESB2"
+        xmlns:MainWindowStatusBar="clr-namespace:MainWindowStatusBar;assembly=esb2mwinstatbar" 
+        xmlns:StatusBoard="clr-namespace:StatusBoard;assembly=esb2statbrd" 
+        xmlns:ManagementControl="clr-namespace:ManagementControl;assembly=esb2mngmntcnsl" 
+        x:Class="ESB2.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Equipment Status Board 2.0" Height="450" Width="800" WindowState="Maximized" KeyDown="MainWindowKeyDown">
+    <DockPanel>
+        <MainWindowStatusBar:StatusBar DockPanel.Dock="Bottom"/>
+        <Grid>
+            <StatusBoard:MainBoard/>
+            <ManagementControl:ManagementControlConsole Visibility="Collapsed"/>
+        </Grid>
+    </DockPanel>
 </Window>

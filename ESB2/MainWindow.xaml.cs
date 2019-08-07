@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ESB2.Database;
 
 namespace ESB2
 {
@@ -22,7 +24,32 @@ namespace ESB2
     {
         public MainWindow()
         {
+            ESB2db.InitializeDatabase();
             InitializeComponent();
+            CurrentUserNotifications.SendNotification(null);
+        }
+
+        private void MainWindowKeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.F2:
+                    CurrentUserNotifications.SendNotification(ESB2Login.Login());
+                    break;
+
+                case Key.Escape:
+                    if(CurrentUserNotifications.CurrentUser != null)
+                        CurrentUserNotifications.SendNotification(ESB2Login.Logout(CurrentUserNotifications.CurrentUser));
+                    break;
+            }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if(CurrentUserNotifications.CurrentUser != null)
+                ESB2Login.Logout(CurrentUserNotifications.CurrentUser);
+
+            base.OnClosing(e);
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ManagementControl"
+             xmlns:UserManager="clr-namespace:UserManager;assembly=esb2usrmnger" xmlns:EquipmentManager="clr-namespace:EquipmentManager;assembly=esb2eqmngmnt" x:Class="ManagementControl.ManagementControlConsole"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/dsbwpflib;component/MyResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle Margin="10" RadiusX="20" RadiusY="20">
+            <Rectangle.Effect>
+                <DropShadowEffect/>
+            </Rectangle.Effect>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.DesktopColorKey}}"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <DockPanel Margin="20">
+            <UniformGrid DockPanel.Dock="Top" Rows="1" HorizontalAlignment="Stretch">
+                <Button x:Name="reportManager" Content="Reports" FontSize="16" Style="{StaticResource LabelButton}" Width="150"/>
+                <Button x:Name="statusManager" Content="Status Updates" FontSize="16" Style="{StaticResource LabelButton}"/>
+                <Button x:Name="equipmentManager" Content="Equipment Manger" FontSize="16" Style="{StaticResource LabelButton}"
+                        Tag="{Binding ElementName=equipmentMangementConsole}" Click="ConsoleSelectClick"/>
+                <Button x:Name="boardManager" Content="Status Board Layout" FontSize="16" Style="{StaticResource LabelButton}"/>
+                <Button x:Name="userManager" Content="User Manager" FontSize="16" Style="{StaticResource LabelButton}"
+                    Tag="{Binding ElementName=userManagementConsole}" Click="ConsoleSelectClick"/>
+                <Button x:Name="admin" Content="Database Admin" FontSize="16" Style="{StaticResource LabelButton}"/>
+            </UniformGrid>
+            <Grid>
+                <UserManager:UserManagerControlConsole x:Name="userManagementConsole" Visibility="Collapsed"/>
+                <EquipmentManager:EquipmentManagementConsole x:Name="equipmentMangementConsole" Visibility="Collapsed"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>

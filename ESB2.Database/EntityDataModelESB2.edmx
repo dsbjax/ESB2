@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EntityDataModelESB2.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EntityDataModelESB2StoreContainer">
+    <EntitySet Name="Users" EntityType="EntityDataModelESB2.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExceptionEventLog" EntityType="EntityDataModelESB2.Store.ExceptionEventLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EventLogLog" EntityType="EntityDataModelESB2.Store.EventLogLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SystemGroupings" EntityType="EntityDataModelESB2.Store.SystemGroupings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipmentGroupings" EntityType="EntityDataModelESB2.Store.EquipmentGroupings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipmentListing" EntityType="EntityDataModelESB2.Store.EquipmentListing" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_UserLogin" EntityType="EntityDataModelESB2.Store.Users_UserLogin" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ApplicationExceptionInnerException" Association="EntityDataModelESB2.Store.ApplicationExceptionInnerException">
+      <End Role="ApplicationException" EntitySet="ExceptionEventLog" />
+      <End Role="ApplicationException1" EntitySet="ExceptionEventLog" />
+    </AssociationSet>
+    <AssociationSet Name="SystemGroupEquipmentGroup" Association="EntityDataModelESB2.Store.SystemGroupEquipmentGroup">
+      <End Role="SystemGroup" EntitySet="SystemGroupings" />
+      <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+    </AssociationSet>
+    <AssociationSet Name="EquipmentGroupEquipment" Association="EntityDataModelESB2.Store.EquipmentGroupEquipment">
+      <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLogin_inherits_User" Association="EntityDataModelESB2.Store.FK_UserLogin_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLogin" EntitySet="Users_UserLogin" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar" Nullable="false" />
+    <Property Name="UserPermissions" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExceptionEventLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" Nullable="false" />
+    <Property Name="Source" Type="nvarchar" Nullable="false" />
+    <Property Name="StackTrace" Type="nvarchar" Nullable="false" />
+    <Property Name="IsInnerException" Type="bit" Nullable="false" />
+    <Property Name="ApplicationExceptionInnerException_ApplicationException1_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="EventLogLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="User" Type="nvarchar" Nullable="false" />
+    <Property Name="Event" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SystemGroupings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nomenclature" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipmentGroupings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="SystemGroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipmentListing">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nomenclature" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="EquipmentStatus" Type="int" Nullable="false" />
+    <Property Name="OperationalStatus" Type="int" Nullable="false" />
+    <Property Name="EquipmentGroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_UserLogin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Password" Type="varbinary" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="false" />
+    <Property Name="FailedLoginTimestamp" Type="datetime" Nullable="false" />
+    <Property Name="FailedLoginCount" Type="int" Nullable="false" />
+    <Property Name="AccountLocked" Type="bit" Nullable="false" />
+    <Property Name="UserMustChangePassword" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ApplicationExceptionInnerException">
+    <End Role="ApplicationException" Type="EntityDataModelESB2.Store.ExceptionEventLog" Multiplicity="0..1" />
+    <End Role="ApplicationException1" Type="EntityDataModelESB2.Store.ExceptionEventLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplicationException">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ApplicationException1">
+        <PropertyRef Name="ApplicationExceptionInnerException_ApplicationException1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SystemGroupEquipmentGroup">
+    <End Role="SystemGroup" Type="EntityDataModelESB2.Store.SystemGroupings" Multiplicity="1" />
+    <End Role="EquipmentGroup" Type="EntityDataModelESB2.Store.EquipmentGroupings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SystemGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EquipmentGroup">
+        <PropertyRef Name="SystemGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EquipmentGroupEquipment">
+    <End Role="EquipmentGroup" Type="EntityDataModelESB2.Store.EquipmentGroupings" Multiplicity="1" />
+    <End Role="Equipment" Type="EntityDataModelESB2.Store.EquipmentListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipment">
+        <PropertyRef Name="EquipmentGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLogin_inherits_User">
+    <End Role="User" Type="EntityDataModelESB2.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserLogin" Type="EntityDataModelESB2.Store.Users_UserLogin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLogin">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EntityDataModelESB2" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="EntityDataModelESB2Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="EntityDataModelESB2.User" />
+          <EntitySet Name="ExceptionEventLog" EntityType="EntityDataModelESB2.ExceptionEventLogEntry" />
+          <AssociationSet Name="ApplicationExceptionInnerException" Association="EntityDataModelESB2.ApplicationExceptionInnerException">
+            <End Role="ApplicationException" EntitySet="ExceptionEventLog" />
+            <End Role="ApplicationException1" EntitySet="ExceptionEventLog" />
+          </AssociationSet>
+          <EntitySet Name="EventLogLog" EntityType="EntityDataModelESB2.EventLoggerEvent" />
+          <EntitySet Name="SystemGroupings" EntityType="EntityDataModelESB2.SystemGroup" />
+          <EntitySet Name="EquipmentGroupings" EntityType="EntityDataModelESB2.EquipmentGroup" />
+          <AssociationSet Name="SystemGroupEquipmentGroup" Association="EntityDataModelESB2.SystemGroupEquipmentGroup">
+            <End Role="SystemGroup" EntitySet="SystemGroupings" />
+            <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+          </AssociationSet>
+          <EntitySet Name="EquipmentListing" EntityType="EntityDataModelESB2.Equipment" />
+          <AssociationSet Name="EquipmentGroupEquipment" Association="EntityDataModelESB2.EquipmentGroupEquipment">
+            <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" />
+          <Property Name="UserPermissions" Type="EntityDataModelESB2.UserPermissions" Nullable="false" />
+        </EntityType>
+        <EnumType Name="UserPermissions" IsFlags="true">
+          <Member Name="ReportsOnly" Value="1" />
+          <Member Name="StatusUpdates" Value="2" />
+          <Member Name="EquipmentMangement" Value="4" />
+          <Member Name="StatusBoardManagement" Value="8" />
+          <Member Name="UserManagement" Value="16" />
+          <Member Name="Admin" Value="32" />
+        </EnumType>
+        <EntityType Name="UserLogin" BaseType="EntityDataModelESB2.User">
+          <Property Name="Password" Type="Binary" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+          <Property Name="FailedLoginTimestamp" Type="DateTime" Nullable="false" />
+          <Property Name="FailedLoginCount" Type="Int32" Nullable="false" />
+          <Property Name="AccountLocked" Type="Boolean" Nullable="false" />
+          <Property Name="UserMustChangePassword" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExceptionEventLogEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" />
+          <Property Name="Source" Type="String" Nullable="false" />
+          <Property Name="StackTrace" Type="String" Nullable="false" />
+          <Property Name="IsInnerException" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="InnerException" Relationship="EntityDataModelESB2.ApplicationExceptionInnerException" FromRole="ApplicationException" ToRole="ApplicationException1" />
+        </EntityType>
+        <Association Name="ApplicationExceptionInnerException">
+          <End Type="EntityDataModelESB2.ExceptionEventLogEntry" Role="ApplicationException" Multiplicity="0..1" />
+          <End Type="EntityDataModelESB2.ExceptionEventLogEntry" Role="ApplicationException1" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="EventLoggerEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="User" Type="String" Nullable="false" />
+          <Property Name="Event" Type="EntityDataModelESB2.EventLoggerEvents" Nullable="false" />
+        </EntityType>
+        <EnumType Name="EventLoggerEvents">
+          <Member Name="LoginSuccess" />
+          <Member Name="LoginFail" />
+          <Member Name="Logout" />
+          <Member Name="UserCreated" />
+          <Member Name="UserAccountLocked" />
+          <Member Name="UserAccountUnlocked" />
+          <Member Name="UserPasswordChanged" />
+          <Member Name="InvalidUsername" />
+          <Member Name="ApplicationStarted" />
+          <Member Name="ApplicationClosing" />
+          <Member Name="SystemGroupAdded" />
+          <Member Name="SystemGroupDeleted" />
+          <Member Name="EquipmentGroupAdded" />
+          <Member Name="EquipmentGroupDeleted" />
+          <Member Name="EquipmentAdded" />
+          <Member Name="EquipmentDeleted" />
+        </EnumType>
+        <EntityType Name="SystemGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nomenclature" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="EquipmentGroups" Relationship="EntityDataModelESB2.SystemGroupEquipmentGroup" FromRole="SystemGroup" ToRole="EquipmentGroup" />
+        </EntityType>
+        <EntityType Name="EquipmentGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="SystemGroupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="EntityDataModelESB2.EquipmentGroupEquipment" FromRole="EquipmentGroup" ToRole="Equipment" />
+        </EntityType>
+        <Association Name="SystemGroupEquipmentGroup">
+          <End Type="EntityDataModelESB2.SystemGroup" Role="SystemGroup" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EquipmentGroup">
+              <PropertyRef Name="SystemGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nomenclature" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="EquipmentStatus" Type="EntityDataModelESB2.EquipmentStatus" Nullable="false" />
+          <Property Name="OperationalStatus" Type="EntityDataModelESB2.OperationalStatus" Nullable="false" />
+          <Property Name="EquipmentGroupId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EnumType Name="EquipmentStatus">
+          <Member Name="Operational" />
+          <Member Name="Degraded" />
+          <Member Name="Down" />
+        </EnumType>
+        <EnumType Name="OperationalStatus">
+          <Member Name="OnLine" />
+          <Member Name="OffLine" />
+          <Member Name="StandBy" />
+          <Member Name="LayUp" />
+        </EnumType>
+        <Association Name="EquipmentGroupEquipment">
+          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.Equipment" Role="Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="EquipmentGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EntityDataModelESB2StoreContainer" CdmEntityContainer="EntityDataModelESB2Container">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="UserPermissions" ColumnName="UserPermissions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.UserLogin)">
+        <MappingFragment StoreEntitySet="Users_UserLogin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="FailedLoginTimestamp" ColumnName="FailedLoginTimestamp" />
+          <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+          <ScalarProperty Name="AccountLocked" ColumnName="AccountLocked" />
+          <ScalarProperty Name="UserMustChangePassword" ColumnName="UserMustChangePassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionEventLog">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.ExceptionEventLogEntry)">
+        <MappingFragment StoreEntitySet="ExceptionEventLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="IsInnerException" ColumnName="IsInnerException" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventLogLog">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.EventLoggerEvent)">
+        <MappingFragment StoreEntitySet="EventLogLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Event" ColumnName="Event" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SystemGroupings">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.SystemGroup)">
+        <MappingFragment StoreEntitySet="SystemGroupings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nomenclature" ColumnName="Nomenclature" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentGroupings">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.EquipmentGroup)">
+        <MappingFragment StoreEntitySet="EquipmentGroupings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SystemGroupId" ColumnName="SystemGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentListing">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.Equipment)">
+        <MappingFragment StoreEntitySet="EquipmentListing">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nomenclature" ColumnName="Nomenclature" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EquipmentStatus" ColumnName="EquipmentStatus" />
+          <ScalarProperty Name="OperationalStatus" ColumnName="OperationalStatus" />
+          <ScalarProperty Name="EquipmentGroupId" ColumnName="EquipmentGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ApplicationExceptionInnerException" TypeName="EntityDataModelESB2.ApplicationExceptionInnerException" StoreEntitySet="ExceptionEventLog">
+      <EndProperty Name="ApplicationException">
+        <ScalarProperty Name="Id" ColumnName="ApplicationExceptionInnerException_ApplicationException1_Id" />
+      </EndProperty>
+      <EndProperty Name="ApplicationException1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="ApplicationExceptionInnerException_ApplicationException1_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
