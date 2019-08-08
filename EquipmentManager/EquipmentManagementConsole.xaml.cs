@@ -34,49 +34,68 @@ namespace EquipmentManager
 
         private void AddSystemsGroupClick(object sender, RoutedEventArgs e)
         {
-            SystemsList.AddNewSystemGroup(newSystemNomenclature.Text, newSystemDescription.Text);
+            systems.SelectedItem =
+                SystemsList.AddNewSystemGroup("New System", "New System Description");
+
+            systemGroupNomenclature.Focus();
         }
 
         private void AddEquipmentGroupClick(object sender, RoutedEventArgs e)
         {
-            systems.SelectedItem =
-            SystemsList.AddNewEquipmentGroup((SystemGroup)systems.SelectedItem, 
-                newEquipmentGroupTitle.Text, newEquipmentGroupDescription.Text);
+            var oldSelectedSystemsGroup = (SystemGroup)systems.SelectedItem;
+            var newEquipmentGroup = 
+                SystemsList.AddNewEquipmentGroup((SystemGroup)systems.SelectedItem,
+                "New Equipment Group", "New Equipment Group Description");
+
+            systems.SelectedItem = SystemsList.GetSystemsList().First(s => s.Id == oldSelectedSystemsGroup.Id);
+            equipmentGroups.SelectedItem = newEquipmentGroup;
+
+            equipmentGroupTitle.Focus();
         }
 
         private void AddEquipmentClick(object sender, RoutedEventArgs e)
         {
-            var oldSelectedItem = (SystemGroup) systems.SelectedItem;
+            var oldSelectedSystemGroup = (SystemGroup)systems.SelectedItem;
+            var oldSelectedEquipmentGroup = (EquipmentGroup)equipmentGroups.SelectedItem;
 
-            EquipmentGroup selectedGroup =
-                SystemsList.AddNewEquipmentGroup((EquipmentGroup)equipmentGroups.SelectedItem, newEquipmentNomenclature.Text, newEquipmentDescription.Text);
+            var newEquipment =
+                SystemsList.AddNewEquipment((EquipmentGroup)equipmentGroups.SelectedItem,
+                "New Equipment", "New Equipment Description");
 
-            var selectedSystem = ((ObservableCollection<SystemGroup>)systems.ItemsSource).First(s => s.Id == oldSelectedItem.Id);
 
-            
-            systems.SelectedItem = selectedSystem;
-            equipmentGroups.SelectedItem = selectedGroup;
+            systems.SelectedItem = SystemsList.GetSystemsList().First(s => s.Id == oldSelectedSystemGroup.Id);
+            equipmentGroups.SelectedItem = ((SystemGroup)systems.SelectedItem).EquipmentGroups.First(eg => eg.Id == oldSelectedEquipmentGroup.Id);
+            equipment.SelectedItem = newEquipment;
 
-        }
-
-        private void SystemsTextChanged(object sender, TextChangedEventArgs e)
-        {
-            addSystem.IsEnabled =
-                newSystemDescription.Text.Length > 3 &&
-                newSystemNomenclature.Text.Length > 3;
+            equipmentNomenclature.Focus();
         }
 
         private void DeleteSystemClick(object sender, RoutedEventArgs e)
         {
             SystemsList.Delete((SystemGroup)systems.SelectedItem);
         }
+
+        private void DeleteEquipmentGroupClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteEquipmentClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBoxGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            ((TextBox)sender).SelectAll();
+        }
     }
 
-    public class HasTitleConvertor : IValueConverter
+    public class NullValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (((TextBox)value).Text.Length > 1);
+            return value != null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

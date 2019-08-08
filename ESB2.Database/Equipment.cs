@@ -20,5 +20,6 @@ namespace ESB2.Database
         public EquipmentStatus EquipmentStatus { get; set; }
         public OperationalStatus OperationalStatus { get; set; }
         public int EquipmentGroupId { get; set; }
+        public Nullable<int> StatusBoardStaticPageItemId { get; set; }
     }
 }

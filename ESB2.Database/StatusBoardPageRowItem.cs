@@ -10,12 +10,14 @@
 namespace ESB2.Database
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum EquipmentStatus : int
+    public partial class StatusBoardPageRowItem
     {
-        Operational = 0,
-        Degraded = 1,
-        ScheduledOutage = 2,
-        Down = 3
+        public int Id { get; set; }
+        public int StatusBoardPageRowId { get; set; }
+        public int ItemIndex { get; set; }
+    
+        public virtual Equipment Equipment { get; set; }
     }
 }

@@ -34,59 +34,76 @@ namespace ESB2.Database
                 systemsList.Add(system);
         }
 
-        public static void AddNewSystemGroup(string nomenclature, string description)
+        public static SystemGroup AddNewSystemGroup(string nomenclature, string description)
         {
-            database.SystemGroupings.Add(new SystemGroup()
+            var newSystemsGroup = new SystemGroup()
             {
                 Nomenclature = nomenclature,
                 Description = description
-            });
+            };
+
+            database.SystemGroupings.Add(newSystemsGroup);
 
             database.SaveChanges();
             ESB2UserEventLog.LogUserEvent(CurrentUserNotifications.CurrentUser.Username, EventLoggerEvents.SystemGroupAdded);
             LoadSystemsList();
+
+            return newSystemsGroup;
         }
 
-        public static SystemGroup AddNewEquipmentGroup(SystemGroup selectedItem, string title, string description)
+        public static EquipmentGroup AddNewEquipmentGroup(SystemGroup selectedSystemGroup, string title, string description)
         {
-            selectedItem.EquipmentGroups.Add(new EquipmentGroup()
+            var newEquipmentGroup = new EquipmentGroup()
             {
                 Title = title,
                 Description = description
-            });
+            };
+
+            selectedSystemGroup.EquipmentGroups.Add(newEquipmentGroup);
 
             database.SaveChanges();
             ESB2UserEventLog.LogUserEvent(CurrentUserNotifications.CurrentUser.Username, EventLoggerEvents.EquipmentGroupAdded);
 
             LoadSystemsList();
 
-            return systemsList.First(s => s.Id == selectedItem.Id);
+            return newEquipmentGroup;
         }
 
-        public static EquipmentGroup AddNewEquipmentGroup(EquipmentGroup selectedItem, string title, string description)
+        public static Equipment AddNewEquipment(EquipmentGroup selectedEquipmentGroup, string title, string description)
         {
-            selectedItem.Equipment.Add(new Equipment()
+            var newEquipment = new Equipment()
             {
                 Nomenclature = title,
                 Description = description
-            });
+            };
+
+            selectedEquipmentGroup.Equipment.Add(newEquipment);
 
             database.SaveChanges();
             ESB2UserEventLog.LogUserEvent(CurrentUserNotifications.CurrentUser.Username, EventLoggerEvents.EquipmentAdded);
 
             LoadSystemsList();
 
-            return database.EquipmentGroupings.First(e=> e.Id == selectedItem.Id);
+            return newEquipment;
         }
 
         public static void Delete(SystemGroup systemGroup)
         {
-            foreach(var group in systemGroup.EquipmentGroups)
-            {
-
-            }
-            
             database.SystemGroupings.Remove(systemGroup);
+            database.SaveChanges();
+            LoadSystemsList();
+        }
+
+        public static void Delete(EquipmentGroup equipmentGroup)
+        {
+            database.EquipmentGroupings.Remove(equipmentGroup);
+            database.SaveChanges();
+            LoadSystemsList();
+        }
+
+        public static void Delete(Equipment equipment)
+        {
+            database.EquipmentListing.Remove(equipment);
             database.SaveChanges();
             LoadSystemsList();
         }

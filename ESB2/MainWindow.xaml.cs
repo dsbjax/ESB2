@@ -40,6 +40,10 @@ namespace ESB2
                 case Key.Escape:
                     if(CurrentUserNotifications.CurrentUser != null)
                         CurrentUserNotifications.SendNotification(ESB2Login.Logout(CurrentUserNotifications.CurrentUser));
+
+                    if (ESB2db.GetDatabase().ChangeTracker.HasChanges())
+                        ESB2db.GetDatabase().SaveChanges();
+
                     break;
             }
         }
@@ -48,6 +52,9 @@ namespace ESB2
         {
             if(CurrentUserNotifications.CurrentUser != null)
                 ESB2Login.Logout(CurrentUserNotifications.CurrentUser);
+
+            if (ESB2db.GetDatabase().ChangeTracker.HasChanges())
+                ESB2db.GetDatabase().SaveChanges();
 
             base.OnClosing(e);
         }

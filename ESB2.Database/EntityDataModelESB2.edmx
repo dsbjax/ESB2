@@ -12,6 +12,12 @@
     <EntitySet Name="SystemGroupings" EntityType="EntityDataModelESB2.Store.SystemGroupings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EquipmentGroupings" EntityType="EntityDataModelESB2.Store.EquipmentGroupings" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EquipmentListing" EntityType="EntityDataModelESB2.Store.EquipmentListing" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardStaticPages" EntityType="EntityDataModelESB2.Store.StatusBoardStaticPages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardPages" EntityType="EntityDataModelESB2.Store.StatusBoardPages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardPageRows" EntityType="EntityDataModelESB2.Store.StatusBoardPageRows" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardPageRowItems" EntityType="EntityDataModelESB2.Store.StatusBoardPageRowItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardStaticPageRows" EntityType="EntityDataModelESB2.Store.StatusBoardStaticPageRows" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusBoardStaticPageItems" EntityType="EntityDataModelESB2.Store.StatusBoardStaticPageItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_UserLogin" EntityType="EntityDataModelESB2.Store.Users_UserLogin" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ApplicationExceptionInnerException" Association="EntityDataModelESB2.Store.ApplicationExceptionInnerException">
       <End Role="ApplicationException" EntitySet="ExceptionEventLog" />
@@ -23,6 +29,30 @@
     </AssociationSet>
     <AssociationSet Name="EquipmentGroupEquipment" Association="EntityDataModelESB2.Store.EquipmentGroupEquipment">
       <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardPageStatusBoardPageRow" Association="EntityDataModelESB2.Store.StatusBoardPageStatusBoardPageRow">
+      <End Role="StatusBoardPage" EntitySet="StatusBoardPages" />
+      <End Role="StatusBoardPageRow" EntitySet="StatusBoardPageRows" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardPageRowStatusBoardPageRowItem" Association="EntityDataModelESB2.Store.StatusBoardPageRowStatusBoardPageRowItem">
+      <End Role="StatusBoardPageRow" EntitySet="StatusBoardPageRows" />
+      <End Role="StatusBoardPageRowItem" EntitySet="StatusBoardPageRowItems" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardPageRowItemEquipment" Association="EntityDataModelESB2.Store.StatusBoardPageRowItemEquipment">
+      <End Role="StatusBoardPageRowItem" EntitySet="StatusBoardPageRowItems" />
+      <End Role="Equipment" EntitySet="EquipmentListing" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardStaticPageStatusBoardStaticPageRow" Association="EntityDataModelESB2.Store.StatusBoardStaticPageStatusBoardStaticPageRow">
+      <End Role="StatusBoardStaticPage" EntitySet="StatusBoardStaticPages" />
+      <End Role="StatusBoardStaticPageRow" EntitySet="StatusBoardStaticPageRows" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardStaticPageRowStatusBoardStaticPageItem" Association="EntityDataModelESB2.Store.StatusBoardStaticPageRowStatusBoardStaticPageItem">
+      <End Role="StatusBoardStaticPageRow" EntitySet="StatusBoardStaticPageRows" />
+      <End Role="StatusBoardStaticPageItem" EntitySet="StatusBoardStaticPageItems" />
+    </AssociationSet>
+    <AssociationSet Name="StatusBoardStaticPageItemEquipment" Association="EntityDataModelESB2.Store.StatusBoardStaticPageItemEquipment">
+      <End Role="StatusBoardStaticPageItem" EntitySet="StatusBoardStaticPageItems" />
       <End Role="Equipment" EntitySet="EquipmentListing" />
     </AssociationSet>
     <AssociationSet Name="FK_UserLogin_inherits_User" Association="EntityDataModelESB2.Store.FK_UserLogin_inherits_User">
@@ -88,6 +118,61 @@
     <Property Name="EquipmentStatus" Type="int" Nullable="false" />
     <Property Name="OperationalStatus" Type="int" Nullable="false" />
     <Property Name="EquipmentGroupId" Type="int" Nullable="false" />
+    <Property Name="StatusBoardStaticPageItemId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="StatusBoardStaticPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="Display" Type="bit" Nullable="false" />
+    <Property Name="Index" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusBoardPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="BackgroundImage" Type="nvarchar" Nullable="false" />
+    <Property Name="Display" Type="bit" Nullable="false" />
+    <Property Name="Index" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusBoardPageRows">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusBoardPageId" Type="int" Nullable="false" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusBoardPageRowItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusBoardPageRowId" Type="int" Nullable="false" />
+    <Property Name="ItemIndex" Type="int" Nullable="false" />
+    <Property Name="Equipment_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusBoardStaticPageRows">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RowIndex" Type="nvarchar" Nullable="false" />
+    <Property Name="StatusBoardStaticPageId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusBoardStaticPageItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemIndex" Type="nvarchar" Nullable="false" />
+    <Property Name="StatusBoardStaticPageRowId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_UserLogin">
     <Key>
@@ -114,7 +199,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="SystemGroupEquipmentGroup">
-    <End Role="SystemGroup" Type="EntityDataModelESB2.Store.SystemGroupings" Multiplicity="1" />
+    <End Role="SystemGroup" Type="EntityDataModelESB2.Store.SystemGroupings" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="EquipmentGroup" Type="EntityDataModelESB2.Store.EquipmentGroupings" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SystemGroup">
@@ -126,7 +213,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="EquipmentGroupEquipment">
-    <End Role="EquipmentGroup" Type="EntityDataModelESB2.Store.EquipmentGroupings" Multiplicity="1" />
+    <End Role="EquipmentGroup" Type="EntityDataModelESB2.Store.EquipmentGroupings" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Equipment" Type="EntityDataModelESB2.Store.EquipmentListing" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="EquipmentGroup">
@@ -134,6 +223,78 @@
       </Principal>
       <Dependent Role="Equipment">
         <PropertyRef Name="EquipmentGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardPageStatusBoardPageRow">
+    <End Role="StatusBoardPage" Type="EntityDataModelESB2.Store.StatusBoardPages" Multiplicity="1" />
+    <End Role="StatusBoardPageRow" Type="EntityDataModelESB2.Store.StatusBoardPageRows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusBoardPage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusBoardPageRow">
+        <PropertyRef Name="StatusBoardPageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardPageRowStatusBoardPageRowItem">
+    <End Role="StatusBoardPageRow" Type="EntityDataModelESB2.Store.StatusBoardPageRows" Multiplicity="1" />
+    <End Role="StatusBoardPageRowItem" Type="EntityDataModelESB2.Store.StatusBoardPageRowItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusBoardPageRow">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusBoardPageRowItem">
+        <PropertyRef Name="StatusBoardPageRowId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardPageRowItemEquipment">
+    <End Role="StatusBoardPageRowItem" Type="EntityDataModelESB2.Store.StatusBoardPageRowItems" Multiplicity="*" />
+    <End Role="Equipment" Type="EntityDataModelESB2.Store.EquipmentListing" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Equipment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusBoardPageRowItem">
+        <PropertyRef Name="Equipment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardStaticPageStatusBoardStaticPageRow">
+    <End Role="StatusBoardStaticPage" Type="EntityDataModelESB2.Store.StatusBoardStaticPages" Multiplicity="1" />
+    <End Role="StatusBoardStaticPageRow" Type="EntityDataModelESB2.Store.StatusBoardStaticPageRows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusBoardStaticPage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusBoardStaticPageRow">
+        <PropertyRef Name="StatusBoardStaticPageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardStaticPageRowStatusBoardStaticPageItem">
+    <End Role="StatusBoardStaticPageRow" Type="EntityDataModelESB2.Store.StatusBoardStaticPageRows" Multiplicity="1" />
+    <End Role="StatusBoardStaticPageItem" Type="EntityDataModelESB2.Store.StatusBoardStaticPageItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusBoardStaticPageRow">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StatusBoardStaticPageItem">
+        <PropertyRef Name="StatusBoardStaticPageRowId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StatusBoardStaticPageItemEquipment">
+    <End Role="StatusBoardStaticPageItem" Type="EntityDataModelESB2.Store.StatusBoardStaticPageItems" Multiplicity="0..1" />
+    <End Role="Equipment" Type="EntityDataModelESB2.Store.EquipmentListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusBoardStaticPageItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipment">
+        <PropertyRef Name="StatusBoardStaticPageItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -172,6 +333,36 @@
           <EntitySet Name="EquipmentListing" EntityType="EntityDataModelESB2.Equipment" />
           <AssociationSet Name="EquipmentGroupEquipment" Association="EntityDataModelESB2.EquipmentGroupEquipment">
             <End Role="EquipmentGroup" EntitySet="EquipmentGroupings" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+          <EntitySet Name="StatusBoardStaticPages" EntityType="EntityDataModelESB2.StatusBoardStaticPage" />
+          <EntitySet Name="StatusBoardPages" EntityType="EntityDataModelESB2.StatusBoardPage" />
+          <EntitySet Name="StatusBoardPageRows" EntityType="EntityDataModelESB2.StatusBoardPageRow" />
+          <EntitySet Name="StatusBoardPageRowItems" EntityType="EntityDataModelESB2.StatusBoardPageRowItem" />
+          <AssociationSet Name="StatusBoardPageStatusBoardPageRow" Association="EntityDataModelESB2.StatusBoardPageStatusBoardPageRow">
+            <End Role="StatusBoardPage" EntitySet="StatusBoardPages" />
+            <End Role="StatusBoardPageRow" EntitySet="StatusBoardPageRows" />
+          </AssociationSet>
+          <AssociationSet Name="StatusBoardPageRowStatusBoardPageRowItem" Association="EntityDataModelESB2.StatusBoardPageRowStatusBoardPageRowItem">
+            <End Role="StatusBoardPageRow" EntitySet="StatusBoardPageRows" />
+            <End Role="StatusBoardPageRowItem" EntitySet="StatusBoardPageRowItems" />
+          </AssociationSet>
+          <AssociationSet Name="StatusBoardPageRowItemEquipment" Association="EntityDataModelESB2.StatusBoardPageRowItemEquipment">
+            <End Role="StatusBoardPageRowItem" EntitySet="StatusBoardPageRowItems" />
+            <End Role="Equipment" EntitySet="EquipmentListing" />
+          </AssociationSet>
+          <EntitySet Name="StatusBoardStaticPageRows" EntityType="EntityDataModelESB2.StatusBoardStaticPageRow" />
+          <EntitySet Name="StatusBoardStaticPageItems" EntityType="EntityDataModelESB2.StatusBoardStaticPageItem" />
+          <AssociationSet Name="StatusBoardStaticPageStatusBoardStaticPageRow" Association="EntityDataModelESB2.StatusBoardStaticPageStatusBoardStaticPageRow">
+            <End Role="StatusBoardStaticPage" EntitySet="StatusBoardStaticPages" />
+            <End Role="StatusBoardStaticPageRow" EntitySet="StatusBoardStaticPageRows" />
+          </AssociationSet>
+          <AssociationSet Name="StatusBoardStaticPageRowStatusBoardStaticPageItem" Association="EntityDataModelESB2.StatusBoardStaticPageRowStatusBoardStaticPageItem">
+            <End Role="StatusBoardStaticPageRow" EntitySet="StatusBoardStaticPageRows" />
+            <End Role="StatusBoardStaticPageItem" EntitySet="StatusBoardStaticPageItems" />
+          </AssociationSet>
+          <AssociationSet Name="StatusBoardStaticPageItemEquipment" Association="EntityDataModelESB2.StatusBoardStaticPageItemEquipment">
+            <End Role="StatusBoardStaticPageItem" EntitySet="StatusBoardStaticPageItems" />
             <End Role="Equipment" EntitySet="EquipmentListing" />
           </AssociationSet>
         </EntityContainer>
@@ -264,8 +455,11 @@
           <NavigationProperty Name="Equipment" Relationship="EntityDataModelESB2.EquipmentGroupEquipment" FromRole="EquipmentGroup" ToRole="Equipment" />
         </EntityType>
         <Association Name="SystemGroupEquipmentGroup">
-          <End Type="EntityDataModelESB2.SystemGroup" Role="SystemGroup" Multiplicity="1" />
-          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="*" />
+          <End Type="EntityDataModelESB2.SystemGroup" Role="SystemGroup" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="SystemGroup">
               <PropertyRef Name="Id" />
@@ -285,10 +479,12 @@
           <Property Name="EquipmentStatus" Type="EntityDataModelESB2.EquipmentStatus" Nullable="false" />
           <Property Name="OperationalStatus" Type="EntityDataModelESB2.OperationalStatus" Nullable="false" />
           <Property Name="EquipmentGroupId" Type="Int32" Nullable="false" />
+          <Property Name="StatusBoardStaticPageItemId" Type="Int32" Nullable="true" />
         </EntityType>
         <EnumType Name="EquipmentStatus">
           <Member Name="Operational" />
           <Member Name="Degraded" />
+          <Member Name="ScheduledOutage" />
           <Member Name="Down" />
         </EnumType>
         <EnumType Name="OperationalStatus">
@@ -298,14 +494,140 @@
           <Member Name="LayUp" />
         </EnumType>
         <Association Name="EquipmentGroupEquipment">
-          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="1" />
-          <End Type="EntityDataModelESB2.Equipment" Role="Equipment" Multiplicity="*" />
+          <End Type="EntityDataModelESB2.EquipmentGroup" Role="EquipmentGroup" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="EntityDataModelESB2.Equipment" Role="Equipment" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="EquipmentGroup">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Equipment">
               <PropertyRef Name="EquipmentGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StatusBoardStaticPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Display" Type="Boolean" Nullable="false" />
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StatusBoardStaticPageRows" Relationship="EntityDataModelESB2.StatusBoardStaticPageStatusBoardStaticPageRow" FromRole="StatusBoardStaticPage" ToRole="StatusBoardStaticPageRow" />
+        </EntityType>
+        <EntityType Name="StatusBoardPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="BackgroundImage" Type="String" Nullable="false" />
+          <Property Name="Display" Type="Boolean" Nullable="false" />
+          <Property Name="Index" Type="String" Nullable="false" />
+          <NavigationProperty Name="StatusBoardPageRows" Relationship="EntityDataModelESB2.StatusBoardPageStatusBoardPageRow" FromRole="StatusBoardPage" ToRole="StatusBoardPageRow" />
+        </EntityType>
+        <EntityType Name="StatusBoardPageRow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusBoardPageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StatusBoardPageRowItems" Relationship="EntityDataModelESB2.StatusBoardPageRowStatusBoardPageRowItem" FromRole="StatusBoardPageRow" ToRole="StatusBoardPageRowItem" />
+          <Property Name="RowIndex" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusBoardPageRowItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusBoardPageRowId" Type="Int32" Nullable="false" />
+          <Property Name="ItemIndex" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="EntityDataModelESB2.StatusBoardPageRowItemEquipment" FromRole="StatusBoardPageRowItem" ToRole="Equipment" />
+        </EntityType>
+        <Association Name="StatusBoardPageStatusBoardPageRow">
+          <End Type="EntityDataModelESB2.StatusBoardPage" Role="StatusBoardPage" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.StatusBoardPageRow" Role="StatusBoardPageRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBoardPage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusBoardPageRow">
+              <PropertyRef Name="StatusBoardPageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StatusBoardPageRowStatusBoardPageRowItem">
+          <End Type="EntityDataModelESB2.StatusBoardPageRow" Role="StatusBoardPageRow" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.StatusBoardPageRowItem" Role="StatusBoardPageRowItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBoardPageRow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusBoardPageRowItem">
+              <PropertyRef Name="StatusBoardPageRowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StatusBoardPageRowItemEquipment">
+          <End Type="EntityDataModelESB2.StatusBoardPageRowItem" Role="StatusBoardPageRowItem" Multiplicity="0..1" />
+          <End Type="EntityDataModelESB2.Equipment" Role="Equipment" Multiplicity="1" />
+        </Association>
+        <EntityType Name="StatusBoardStaticPageRow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowIndex" Type="String" Nullable="false" />
+          <Property Name="StatusBoardStaticPageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StatusBoardStaticPageItems" Relationship="EntityDataModelESB2.StatusBoardStaticPageRowStatusBoardStaticPageItem" FromRole="StatusBoardStaticPageRow" ToRole="StatusBoardStaticPageItem" />
+        </EntityType>
+        <EntityType Name="StatusBoardStaticPageItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemIndex" Type="String" Nullable="false" />
+          <Property Name="StatusBoardStaticPageRowId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipment" Relationship="EntityDataModelESB2.StatusBoardStaticPageItemEquipment" FromRole="StatusBoardStaticPageItem" ToRole="Equipment" />
+        </EntityType>
+        <Association Name="StatusBoardStaticPageStatusBoardStaticPageRow">
+          <End Type="EntityDataModelESB2.StatusBoardStaticPage" Role="StatusBoardStaticPage" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.StatusBoardStaticPageRow" Role="StatusBoardStaticPageRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBoardStaticPage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusBoardStaticPageRow">
+              <PropertyRef Name="StatusBoardStaticPageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StatusBoardStaticPageRowStatusBoardStaticPageItem">
+          <End Type="EntityDataModelESB2.StatusBoardStaticPageRow" Role="StatusBoardStaticPageRow" Multiplicity="1" />
+          <End Type="EntityDataModelESB2.StatusBoardStaticPageItem" Role="StatusBoardStaticPageItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBoardStaticPageRow">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusBoardStaticPageItem">
+              <PropertyRef Name="StatusBoardStaticPageRowId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StatusBoardStaticPageItemEquipment">
+          <End Type="EntityDataModelESB2.StatusBoardStaticPageItem" Role="StatusBoardStaticPageItem" Multiplicity="0..1" />
+          <End Type="EntityDataModelESB2.Equipment" Role="Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBoardStaticPageItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="StatusBoardStaticPageItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -387,6 +709,66 @@
           <ScalarProperty Name="EquipmentStatus" ColumnName="EquipmentStatus" />
           <ScalarProperty Name="OperationalStatus" ColumnName="OperationalStatus" />
           <ScalarProperty Name="EquipmentGroupId" ColumnName="EquipmentGroupId" />
+          <ScalarProperty Name="StatusBoardStaticPageItemId" ColumnName="StatusBoardStaticPageItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardStaticPages">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardStaticPage)">
+        <MappingFragment StoreEntitySet="StatusBoardStaticPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardPages">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardPage)">
+        <MappingFragment StoreEntitySet="StatusBoardPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BackgroundImage" ColumnName="BackgroundImage" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardPageRows">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardPageRow)">
+        <MappingFragment StoreEntitySet="StatusBoardPageRows">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StatusBoardPageId" ColumnName="StatusBoardPageId" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardPageRowItems">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardPageRowItem)">
+        <MappingFragment StoreEntitySet="StatusBoardPageRowItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StatusBoardPageRowId" ColumnName="StatusBoardPageRowId" />
+          <ScalarProperty Name="ItemIndex" ColumnName="ItemIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardStaticPageRows">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardStaticPageRow)">
+        <MappingFragment StoreEntitySet="StatusBoardStaticPageRows">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="StatusBoardStaticPageId" ColumnName="StatusBoardStaticPageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusBoardStaticPageItems">
+      <EntityTypeMapping TypeName="IsTypeOf(EntityDataModelESB2.StatusBoardStaticPageItem)">
+        <MappingFragment StoreEntitySet="StatusBoardStaticPageItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemIndex" ColumnName="ItemIndex" />
+          <ScalarProperty Name="StatusBoardStaticPageRowId" ColumnName="StatusBoardStaticPageRowId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -398,6 +780,14 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="ApplicationExceptionInnerException_ApplicationException1_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StatusBoardPageRowItemEquipment" TypeName="EntityDataModelESB2.StatusBoardPageRowItemEquipment" StoreEntitySet="StatusBoardPageRowItems">
+      <EndProperty Name="Equipment">
+        <ScalarProperty Name="Id" ColumnName="Equipment_Id" />
+      </EndProperty>
+      <EndProperty Name="StatusBoardPageRowItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

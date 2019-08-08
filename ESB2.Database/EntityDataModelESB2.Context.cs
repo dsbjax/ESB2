@@ -31,5 +31,11 @@ namespace ESB2.Database
         public virtual DbSet<SystemGroup> SystemGroupings { get; set; }
         public virtual DbSet<EquipmentGroup> EquipmentGroupings { get; set; }
         public virtual DbSet<Equipment> EquipmentListing { get; set; }
+        public virtual DbSet<StatusBoardStaticPage> StatusBoardStaticPages { get; set; }
+        public virtual DbSet<StatusBoardPage> StatusBoardPages { get; set; }
+        public virtual DbSet<StatusBoardPageRow> StatusBoardPageRows { get; set; }
+        public virtual DbSet<StatusBoardPageRowItem> StatusBoardPageRowItems { get; set; }
+        public virtual DbSet<StatusBoardStaticPageRow> StatusBoardStaticPageRows { get; set; }
+        public virtual DbSet<StatusBoardStaticPageItem> StatusBoardStaticPageItems { get; set; }
     }
 }

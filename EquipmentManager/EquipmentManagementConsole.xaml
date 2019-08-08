@@ -23,12 +23,13 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
             </Style>
+            <local:NullValueConverter x:Key="nullValueConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <StackPanel Margin="5">
-                <Label Content="Available Systems:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Label Content="Available Systems:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
                 <ListView x:Name="systems">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -52,34 +53,21 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Content="Nomenclature:"/>
                             <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=systems, Path=SelectedItem.Nomenclature, 
-                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="systemGroupNomenclature" Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=systems, Path=SelectedItem.Nomenclature, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
                             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=systems, Path=SelectedItem.Description, 
-                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
                         </Grid>
-                        <Button Content="Delete Selected System" Click="DeleteSystemClick"/>
+                        <Button Content="Delete Selected System" Click="DeleteSystemClick"
+                                IsEnabled="{Binding ElementName=systems, Path=SelectedItem, Converter={StaticResource nullValueConverter}}"/>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Add New System:">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="35"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Nomenclature:"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
-                        <TextBox x:Name="newSystemNomenclature" Grid.Row="0" Grid.Column="1" TextChanged="SystemsTextChanged"/>
-                        <TextBox x:Name="newSystemDescription" Grid.Row="1" Grid.Column="1" TextChanged="SystemsTextChanged"/>
-                    </Grid>
-                </GroupBox>
-                <Button x:Name="addSystem" Content="Add System" IsEnabled="False" Click="AddSystemsGroupClick"/>
+                <Button x:Name="addSystem" Content="Add System" Click="AddSystemsGroupClick"/>
             </StackPanel>
             <StackPanel Margin="5">
-                <Label Content="Equipment Groups:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Label Content="Equipment Groups:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
                 <ListView x:Name="equipmentGroups" 
                           ItemsSource="{Binding ElementName=systems, Path=SelectedItem.EquipmentGroups}">
                     <ListView.ItemTemplate>
@@ -91,26 +79,35 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <GroupBox Header="Add New Equipment Group:">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="35"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Title:"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
-                        <TextBox x:Name="newEquipmentGroupTitle" Grid.Row="0" Grid.Column="1"/>
-                        <TextBox x:Name="newEquipmentGroupDescription" Grid.Row="1" Grid.Column="1"/>
-                    </Grid>
+                <GroupBox Header="Edit Selected Equipment Group:">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Nomenclature:"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
+                            <TextBox x:Name="equipmentGroupTitle" Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=equipmentGroups, Path=SelectedItem.Title, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=equipmentGroups, Path=SelectedItem.Description, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
+                        </Grid>
+                        <Button Content="Delete Selected Equipment Group" Click="DeleteEquipmentGroupClick"
+                                IsEnabled="{Binding ElementName=equipmentGroups, Path=SelectedItem, Converter={StaticResource nullValueConverter}}"/>
+                    </StackPanel>
                 </GroupBox>
-                <Button Content="Add Equipment Group" Click="AddEquipmentGroupClick"/>
+                <Button Content="Add Equipment Group" Click="AddEquipmentGroupClick"
+                        IsEnabled="{Binding ElementName=systems, Path=SelectedItem, Converter={StaticResource nullValueConverter}}"/>
             </StackPanel>
             <StackPanel Margin="5">
-                <Label Content="Equipment:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Label Content="Equipment:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
                 <ListView x:Name="equipment"
                           ItemsSource="{Binding ElementName=equipmentGroups, Path=SelectedItem.Equipment}">
                     <ListView.ItemTemplate>
@@ -121,24 +118,33 @@
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
-                <GroupBox Header="Add New Equipment:">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="35"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Nomenclature:"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
-                        <TextBox x:Name="newEquipmentNomenclature" Grid.Row="0" Grid.Column="1"/>
-                        <TextBox x:Name="newEquipmentDescription" Grid.Row="1" Grid.Column="1"/>
-                    </Grid>
+                </ListView>                
+                <GroupBox Header="Edit Selected Equipment:">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Nomenclature:"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Description"/>
+                            <TextBox x:Name="equipmentNomenclature" Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=equipment, Path=SelectedItem.Nomenclature, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=equipment, Path=SelectedItem.Description, 
+                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     GotKeyboardFocus="TextBoxGotKeyboardFocus"/>
+                        </Grid>
+                        <Button Content="Delete Selected Equipment" Click="DeleteEquipmentClick"
+                                IsEnabled="{Binding ElementName=equipment, Path=SelectedItem, Converter={StaticResource nullValueConverter}}"/>
+                    </StackPanel>
                 </GroupBox>
-                <Button Content="Add Equipment" Click="AddEquipmentClick"/>
+                <Button Content="Add Equipment" Click="AddEquipmentClick"
+                        IsEnabled="{Binding ElementName=equipmentGroups, Path=SelectedItem, Converter={StaticResource nullValueConverter}}"/>
             </StackPanel>
         </StackPanel>
             </StackPanel>
