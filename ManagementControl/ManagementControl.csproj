@@ -84,6 +84,10 @@
       <Project>{11ec5682-364e-4746-a7d4-d5e27a4c08e6}</Project>
       <Name>WPFLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DatabaseAdmin\DatabaseAdmin.csproj">
+      <Project>{D894E494-0B18-4820-9F74-B9CB75887DBC}</Project>
+      <Name>DatabaseAdmin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EquipmentManager\EquipmentManager.csproj">
       <Project>{95ca5293-6266-4e65-b46a-7ca916cf530b}</Project>
       <Name>EquipmentManager</Name>
@@ -91,6 +95,18 @@
     <ProjectReference Include="..\ESB2.Database\ESB2.Database.csproj">
       <Project>{5834a3e1-6971-4591-9589-020492d63c58}</Project>
       <Name>ESB2.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reports\Reports.csproj">
+      <Project>{7DAEAB6C-2DA8-46E0-B288-1518139FCCCE}</Project>
+      <Name>Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusBoardManager\StatusBoardManager.csproj">
+      <Project>{8444ce6f-cb30-404b-9298-34c62157ede4}</Project>
+      <Name>StatusBoardManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusUpdates\StatusUpdates.csproj">
+      <Project>{89FE7A43-F647-460B-B7AC-99728D73EA03}</Project>
+      <Name>StatusUpdates</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserManager\UserManager.csproj">
       <Project>{05b6ac52-9473-4099-8a51-af06f45ae3ac}</Project>

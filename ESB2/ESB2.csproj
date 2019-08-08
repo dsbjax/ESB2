@@ -113,6 +113,10 @@
       <Project>{11ec5682-364e-4746-a7d4-d5e27a4c08e6}</Project>
       <Name>WPFLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DatabaseAdmin\DatabaseAdmin.csproj">
+      <Project>{D894E494-0B18-4820-9F74-B9CB75887DBC}</Project>
+      <Name>DatabaseAdmin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ESB2.Database\ESB2.Database.csproj">
       <Project>{5834a3e1-6971-4591-9589-020492d63c58}</Project>
       <Name>ESB2.Database</Name>
@@ -125,9 +129,17 @@
       <Project>{d88c5866-faec-4fc5-b9a6-46d33aec38b5}</Project>
       <Name>ManagementControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Reports\Reports.csproj">
+      <Project>{7DAEAB6C-2DA8-46E0-B288-1518139FCCCE}</Project>
+      <Name>Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StatusBoard\StatusBoard.csproj">
       <Project>{63BDB79E-B753-4967-B211-FC3E79C25975}</Project>
       <Name>StatusBoard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusUpdates\StatusUpdates.csproj">
+      <Project>{89FE7A43-F647-460B-B7AC-99728D73EA03}</Project>
+      <Name>StatusUpdates</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

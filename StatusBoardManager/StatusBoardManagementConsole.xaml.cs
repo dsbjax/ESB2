@@ -24,5 +24,17 @@ namespace StatusBoardManager
         {
             InitializeComponent();
         }
+
+        private void PageSelectClick(object sender, RoutedEventArgs e)
+        {
+            ColapseAllPages();
+            ((UserControl)((Button)sender).Tag).Visibility = Visibility.Visible;
+        }
+
+        private void ColapseAllPages()
+        {
+            staticPageControlConsole.Visibility = Visibility.Collapsed;
+            dynamicPageControlConsole.Visibility = Visibility.Collapsed;
+        }
     }
 }

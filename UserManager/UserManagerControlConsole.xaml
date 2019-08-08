@@ -25,8 +25,16 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Rectangle Margin="10" RadiusX="10" RadiusY="10">
+            <Rectangle.Effect>
+                <DropShadowEffect/>
+            </Rectangle.Effect>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="35">
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Users:">
                     <ListView x:Name="userListView" Width="250" Margin="5"

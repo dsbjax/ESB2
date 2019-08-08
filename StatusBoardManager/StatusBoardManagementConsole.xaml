@@ -5,8 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StatusBoardManager"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/dsbwpflib;component/MyResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        
-            
+        <DockPanel Margin="5">
+            <Grid DockPanel.Dock="Top" HorizontalAlignment="Center">
+                <Rectangle Margin="10" RadiusX="10" RadiusY="10" >
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <UniformGrid Rows="1" HorizontalAlignment="Center" Margin="35">
+                    <Button Style="{StaticResource LabelButton}" FontSize="16" Content="Static Pages" Width="150"
+                            Tag="{Binding ElementName=staticPageControlConsole}"
+                            Click="PageSelectClick"/>
+                    <Button Style="{StaticResource LabelButton}" FontSize="16" Content="Dynamic Pages"
+                            Tag="{Binding ElementName=dynamicPageControlConsole}"
+                            Click="PageSelectClick"/>
+                </UniformGrid>
+            </Grid>
+            <Grid>
+                <local:StaticPageControlConsole x:Name="staticPageControlConsole" />
+                <local:DynamicPageControlConsole x:Name="dynamicPageControlConsole" Visibility="Collapsed"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </UserControl>

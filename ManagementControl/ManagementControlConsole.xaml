@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ManagementControl"
-             xmlns:UserManager="clr-namespace:UserManager;assembly=esb2usrmnger" xmlns:EquipmentManager="clr-namespace:EquipmentManager;assembly=esb2eqmngmnt" x:Class="ManagementControl.ManagementControlConsole"
+             xmlns:UserManager="clr-namespace:UserManager;assembly=esb2usrmnger" xmlns:EquipmentManager="clr-namespace:EquipmentManager;assembly=esb2eqmngmnt" xmlns:StatusBoardManager="clr-namespace:StatusBoardManager;assembly=esb2statbrdmngr" xmlns:Reports="clr-namespace:Reports;assembly=esb2rpts" xmlns:DatabaseAdmin="clr-namespace:DatabaseAdmin;assembly=esb2dbadm" xmlns:StatusUpdates="clr-namespace:StatusUpdates;assembly=esb2statupd" x:Class="ManagementControl.ManagementControlConsole"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,18 +24,26 @@
         </Rectangle>
         <DockPanel Margin="20">
             <UniformGrid DockPanel.Dock="Top" Rows="1" HorizontalAlignment="Stretch">
-                <Button x:Name="reportManager" Content="Reports" FontSize="16" Style="{StaticResource LabelButton}" Width="150"/>
-                <Button x:Name="statusManager" Content="Status Updates" FontSize="16" Style="{StaticResource LabelButton}"/>
+                <Button x:Name="reportManager" Content="Reports" FontSize="16" Style="{StaticResource LabelButton}" Width="150"
+                        Tag="{Binding ElementName=reportControlConsole}" Click="ConsoleSelectClick"/>
+                <Button x:Name="statusManager" Content="Status Updates" FontSize="16" Style="{StaticResource LabelButton}"
+                        Tag="{Binding ElementName=statusUdpdateControlConsole}" Click="ConsoleSelectClick"/>
                 <Button x:Name="equipmentManager" Content="Equipment Manger" FontSize="16" Style="{StaticResource LabelButton}"
                         Tag="{Binding ElementName=equipmentMangementConsole}" Click="ConsoleSelectClick"/>
-                <Button x:Name="boardManager" Content="Status Board Layout" FontSize="16" Style="{StaticResource LabelButton}"/>
+                <Button x:Name="boardManager" Content="Status Board Layout" FontSize="16" Style="{StaticResource LabelButton}"
+                        Tag="{Binding ElementName=statusBoardManagementConsole}" Click="ConsoleSelectClick"/>
                 <Button x:Name="userManager" Content="User Manager" FontSize="16" Style="{StaticResource LabelButton}"
                     Tag="{Binding ElementName=userManagementConsole}" Click="ConsoleSelectClick"/>
-                <Button x:Name="admin" Content="Database Admin" FontSize="16" Style="{StaticResource LabelButton}"/>
+                <Button x:Name="admin" Content="Database Admin" FontSize="16" Style="{StaticResource LabelButton}"
+                        Tag="{Binding ElementName=databaseAdminControlConsole}" Click="ConsoleSelectClick"/>
             </UniformGrid>
             <Grid>
                 <UserManager:UserManagerControlConsole x:Name="userManagementConsole" Visibility="Collapsed"/>
                 <EquipmentManager:EquipmentManagementConsole x:Name="equipmentMangementConsole" Visibility="Collapsed"/>
+                <StatusBoardManager:StatusBoardManagementConsole x:Name="statusBoardManagementConsole" Visibility="Collapsed"/>
+                <Reports:ReportControlConsole x:Name="reportControlConsole" Visibility="Collapsed"/>
+                <DatabaseAdmin:DatabaseAdminControlConsole x:Name="databaseAdminControlConsole" Visibility="Collapsed"/>
+                <StatusUpdates:StatusUpdatesControlConsole x:Name="statusUdpdateControlConsole" Visibility="Collapsed"/>
             </Grid>
         </DockPanel>
     </Grid>

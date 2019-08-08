@@ -34,12 +34,7 @@ namespace ManagementControl
                 Visibility = Visibility.Visible;
 
                 reportManager.Visibility =
-                    newCurrentUser.UserPermissions == UserPermissions.ReportsOnly ? Visibility.Collapsed : Visibility.Visible;
-
-                if (newCurrentUser.UserPermissions == UserPermissions.ReportsOnly)
-                {
-                    //Enable Reports Console
-                }
+                    newCurrentUser.UserPermissions == UserPermissions.ReportsOnly ? Visibility.Visible : Visibility.Collapsed;
 
                 statusManager.Visibility =
                     (newCurrentUser.UserPermissions & UserPermissions.StatusUpdates) == UserPermissions.StatusUpdates ?
@@ -80,6 +75,10 @@ namespace ManagementControl
         {
             userManagementConsole.Visibility = Visibility.Collapsed;
             equipmentMangementConsole.Visibility = Visibility.Collapsed;
+            statusBoardManagementConsole.Visibility = Visibility.Collapsed;
+            databaseAdminControlConsole.Visibility = Visibility.Collapsed;
+            statusUdpdateControlConsole.Visibility = Visibility.Collapsed;
+            reportControlConsole.Visibility = Visibility.Collapsed;
         }
     }
 }

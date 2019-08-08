@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementControl", "Manage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatusBoardManager", "StatusBoardManager\StatusBoardManager.csproj", "{8444CE6F-CB30-404B-9298-34C62157EDE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAdmin", "DatabaseAdmin\DatabaseAdmin.csproj", "{D894E494-0B18-4820-9F74-B9CB75887DBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatusUpdates", "StatusUpdates\StatusUpdates.csproj", "{89FE7A43-F647-460B-B7AC-99728D73EA03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{8444CE6F-CB30-404B-9298-34C62157EDE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8444CE6F-CB30-404B-9298-34C62157EDE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8444CE6F-CB30-404B-9298-34C62157EDE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D894E494-0B18-4820-9F74-B9CB75887DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D894E494-0B18-4820-9F74-B9CB75887DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D894E494-0B18-4820-9F74-B9CB75887DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D894E494-0B18-4820-9F74-B9CB75887DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89FE7A43-F647-460B-B7AC-99728D73EA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89FE7A43-F647-460B-B7AC-99728D73EA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89FE7A43-F647-460B-B7AC-99728D73EA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89FE7A43-F647-460B-B7AC-99728D73EA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
